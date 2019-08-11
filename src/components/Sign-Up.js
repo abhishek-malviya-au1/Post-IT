@@ -88,9 +88,8 @@ class SignUpComponent extends React.Component {
             </nav>
         </div>
         
-      <div className="row" style={{marginTop : 250}}>
+      <div className="row animated fadeInUp" style={{marginTop : 250}}>
           <div className="offset-md-4 col-md-4">
-         
             
                 <form onSubmit={this.handleSubmit}>
                     <div className="form-group">

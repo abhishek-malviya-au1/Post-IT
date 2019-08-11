@@ -1,6 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import { stateMapper, store } from "../store/store.js";
+import {ClimbingBoxLoader,PacmanLoader} from 'react-spinners';
+import { css } from '@emotion/core';
 import {BrowserRouter as Router, Route,Link,Redirect} from 'react-router-dom';
 
 var status;
@@ -10,6 +12,13 @@ var thisPostUrl;
 var isSomethingChanged;
 var user;
 
+
+const override = css`
+display: block;
+margin:25px 25px 25px 200px;
+border-color: red;
+`;
+
 class ManagePostComponent extends React.Component{
     
     constructor(props){
@@ -17,7 +26,8 @@ class ManagePostComponent extends React.Component{
         this.state={
             isPostDeleted : false,
             isPostTweeted : false,
-            loaded : false
+            loaded : false,
+            loading:true
         }
         this.handleDelete=this.handleDelete.bind(this);
         this.postOnTwitter=this.postOnTwitter.bind(this);
@@ -60,9 +70,13 @@ class ManagePostComponent extends React.Component{
    this.setState({
        isPostDeleted : true
    })
-   window.location.href='/dashboard';
+   
 
  }
+
+  redirect = () => {
+      return <Redirect to="/dashboard"/>
+  }
 
  postOnTwitter(event){
   
@@ -101,7 +115,7 @@ class ManagePostComponent extends React.Component{
     }
   
  }
- renderComponent(){
+ renderComponent = () => {
  
     return(
         <div class='col-md-9'>    
@@ -123,7 +137,9 @@ class ManagePostComponent extends React.Component{
             <br></br>
             <br></br>
             <button className='btn btn-danger' onClick={this.handleDelete}>Delete Post</button>
+            {this.state.isPostDeleted && this.redirect()}
         </div>
+         
        
     )
   
@@ -132,13 +148,30 @@ class ManagePostComponent extends React.Component{
  
   
     render(){
+        if(this.props.singlePost&& !this.props.singlePost.Caption) {
+            return (
+              <div className="col-md-9">
+                <div className="row">
+               <PacmanLoader
+               css={override}
+               sizeUnit={"px"}
+               size={60}
+               color={'#123abc'}
+               loading={this.state.loading}
+             />
+             <h3 className="animated slideInRight" style={{marginLeft:230, marginTop:70}}>Loading Post</h3>
+             </div>
+             </div>)
+           } else {
         return(
             <div>
                 {this.renderComponent()}
                 {this.props.TwitterPosts?this.postCreatedTwitter():null}
             </div>
+             
            
         )
+    }
     }
 }
 

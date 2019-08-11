@@ -3,18 +3,19 @@ import { store, stateMapper} from "../store/store.js";
 import {connect} from "react-redux";
 import {Link} from 'react-router-dom';
 import {Redirect} from 'react-router-dom';
+let user = JSON.parse(localStorage.getItem("user"));
 
 
 class CreatePostComponent extends React.Component{
    constructor(props){
        super(props);
        this.state={
-           isPostCreated : false
+           isPostCreated : false,
+           name:null
        }
        this.createPostAction=this.createPostAction.bind(this);
        this.doRedirect=this.doRedirect.bind(this);
    } 
-  
    
     createPostAction(){ 
         store.dispatch({
@@ -32,10 +33,10 @@ class CreatePostComponent extends React.Component{
     render(){
        
         return(
+            
             <div className='col-md-9 hcreatepost'>
-                <p>Hey <strong>{this.props.useraccount.name}</strong></p>
-                
-               <textarea className='form-control'
+               <p>Hey <strong>{this.props.usersocialaccounts.name}</strong></p>
+               <textarea maxLength="280" className='form-control'
                         rows='7'
                         onChange={this.props.changeCaption}
                         placeholder="What's on your mind today?">

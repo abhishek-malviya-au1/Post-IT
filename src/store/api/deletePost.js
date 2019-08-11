@@ -1,10 +1,11 @@
+import config from "../../config.js";
 const HEADERS = {
     "X-Parse-Application-Id": "postit",
     "Content-Type": "application/json"
 };
 
 export default function deletePost(store,action) {
-    let url = `http://localhost:1337/parse/classes/UserPosts/${action.data}`;
+    let url = `${config.url}/parse/classes/UserPosts/${action.data}`;
 
     fetch(url, {
         method: "delete",

@@ -3,19 +3,32 @@ import { store, stateMapper} from "../store/store.js";
 import {connect} from "react-redux";
 import {Link} from 'react-router-dom';
 import TwitterLogin from "react-twitter-auth";
+import config from "../config.js";
+import {HashLoader} from 'react-spinners';
+import { css } from '@emotion/core';
 let social = JSON.parse(localStorage.getItem("social"));
+
+const override = css`
+display: block;
+margin:0 auto;
+border-color: red;
+`;
+
 class SideBarComponent extends React.Component{
-    
+    state={loading:true};
     componentDidMount() {
         store.dispatch({
           type: "FETCH_ACCOUNTS"
         });
+
+       setTimeout(()=> this.setState({loading:false}),2000) ;
       }
-      handleUnlink() {
+      handleUnlink = () => {
         store.dispatch({
-          type: "REMOVE_TWITTER",
-          objectId: social.objectId
+          type: "REMOVE_TWITTER"
         });
+        this.setState({loading:true})
+        setTimeout(()=> this.setState({loading:false}),2500) ;
       }
       constructor(props){
         super(props);
@@ -23,8 +36,7 @@ class SideBarComponent extends React.Component{
         this.twitterLoginComponent=this.twitterLoginComponent.bind(this);
       }
     
-      callback(data) {
-      console.log(data);
+      callback = (data) => {
         let initialState=Object.assign({}, social);
         data.json().then(d => {
           initialState.isTwitterConnected = true;
@@ -34,19 +46,33 @@ class SideBarComponent extends React.Component{
             data: initialState
           });
         });
+        this.setState({loading:true})
+        setTimeout(()=> this.setState({loading:false}),2500) ;
       }
       twitterLoginComponent(){
        return (<TwitterLogin className='btn btn-primary btn-lg'
-        loginUrl="http://localhost:4444/auth/twitter/login"
-        requestTokenUrl="http://localhost:4444/auth/twitter/request"
+        loginUrl={config.loginUrl}
+        requestTokenUrl={config.tokenUrl}
         onFailure={this.callback}
         onSuccess={this.callback}  
       />)
       }
     render(){
-        
+      if(this.state.loading) {
+        return (
+          <div className="col-md-3 hsidebar">
+           <HashLoader
+           css={override}
+           sizeUnit={"px"}
+           size={170}
+           color={'#123abc'}
+           loading={this.state.loading}
+         />
+         <h6 style={{marginLeft:60,marginTop:25 }}>Loading Connected Accounts</h6>
+         </div>)
+       } else {
         return(
-            <div className='landing col-md-3 hsidebar'>
+            <div className='animated slideInLeft landing col-md-3 hsidebar'>
                 <div className='row' style={{paddingBottom : 6}}>
                    <button className='btn btn-primary btn-lg'> Connect Facebook</button>
                 </div>
@@ -61,6 +87,7 @@ class SideBarComponent extends React.Component{
                 </div>
             </div>
         );
+         }
     }
 }
 

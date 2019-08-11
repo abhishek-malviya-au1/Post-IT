@@ -1,10 +1,16 @@
 import React from 'react';
-import {Link} from'react-router-dom';
-
+import {Link,Redirect} from'react-router-dom';
+let social = JSON.parse(localStorage.getItem("social"));
+let isUser = localStorage.getItem('user');
 
 class LandingPage extends React.Component{
+    state= {isUser:isUser}
+
+    doRedirect() {
+        return <Redirect to="/dashboard"/>
+    }
     render(){
-        return(
+        return( 
             <div className='landing'>
                 <header>
                     <nav className='hnavbar'>
@@ -19,11 +25,13 @@ class LandingPage extends React.Component{
                         </div>
                     </nav>
                     <div className='hero-text-box'>
-                        <h1>Now post anything on all your apps <br/> in a single click</h1>
-                        <Link className="hbtn hbtn-full" to='/signup'>Post something now</Link>
-                        <Link className="hbtn hbtn-ghost"to='/'>Show me more</Link>
+                        <h1 className="animated slideInUp">Now post anything on all your apps <br/> in a single click</h1>
+                        <Link className=" animated slideInUp delay-0.5s hbtn hbtn-full" to='/signup'>Post something now</Link>
+                        <Link className="hbtn hbtn-ghost animated slideInUp delay-0.5s"to='/'>Show me more</Link>
                     </div>
                 </header>
+
+               
 
                 <section className='section-features'>
                     <div className="container">
@@ -64,11 +72,12 @@ class LandingPage extends React.Component{
                         </div>
                     </div>
                 </section>
+                {this.state.isUser && this.doRedirect()}
             </div>
+           
         )
             
-        
+        } 
     }
-}
 
 export default LandingPage;

@@ -1,3 +1,4 @@
+import config from "../../config.js";
 const HEADERS = {
     "X-Parse-Application-Id": "postit",
     "Content-Type": "application/json"
@@ -9,7 +10,7 @@ export default function loginUser(store,action) {
     let password = action.data.password;
 
     let params = encodeURI(`username=${username}&password=${password}`);
-    let url = `http://localhost:1337/parse/login?${params}`;
+    let url = `${config.url}/parse/login?${params}`;
 
     fetch(url, {
         method: "get",

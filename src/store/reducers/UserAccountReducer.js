@@ -2,6 +2,7 @@ import {store} from '../store.js';
 import signupUser from "../api/signupUser.js";
 import loginUser from "../api/loginUser.js";
 import createSchema from "../api/createSocialAccountsSchema.js"
+import createPostsSchema from '../api/createPostsSchema.js';
 
 
 export default function UserAccountReducer(account={},action) {
@@ -16,6 +17,7 @@ export default function UserAccountReducer(account={},action) {
       }
       if(!action.data.error) {
         createSchema(store,action);
+        createPostsSchema(store,action);
       }
       return action.data;
   }
@@ -26,7 +28,7 @@ export default function UserAccountReducer(account={},action) {
 
   if (action.type === "LOGIN_STATUS") {
     if(!action.data.error) {
-      localStorage.setItem("user", JSON.stringify({owner:action.data.objectId}));
+      localStorage.setItem("user", JSON.stringify({owner:action.data.objectId,name:action.data.name}));
     }
     return action.data;
   }

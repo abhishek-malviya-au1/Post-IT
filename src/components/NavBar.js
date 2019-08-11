@@ -9,7 +9,7 @@ class NavBarComponent extends React.Component{
                    
                         <nav className='hnavbar'>
                                 <div className='hrow'>
-                                    <img src='./Logo.png.ico' alt='POST IT' className='hlogo'/>
+                                    <img src='/Logo.png.ico' alt='POST IT' className='hlogo'/>
                                     <ul className="hmain-nav">
                                         <li><Link className='hnav-ani' to='/dashboard'>Create</Link></li>
                                         <li><Link className='hnav-ani' to='/dashboard/viewposts'>View</Link></li>

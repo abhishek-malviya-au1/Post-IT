@@ -1,3 +1,4 @@
+import config from "../../config.js";
 const HEADERS = {
     "X-Parse-Application-Id": "postit",
     "Content-Type": "application/json"
@@ -9,7 +10,7 @@ export default function fetchOnePost(store,action) {
     
 
     let params = encodeURI(`where={"objectId": "${action.data}"}`);
-    let url = `http://localhost:1337/parse/classes/UserPosts?${params}`;
+    let url = `${config.url}/parse/classes/UserPosts?${params}`;
 
     fetch(url, {
         method: "get",

@@ -1,3 +1,4 @@
+import config from "../../config.js";
 const HEADERS = {
     "X-Parse-Application-Id": "postit",
     "Content-Type": "application/json"
@@ -5,7 +6,7 @@ const HEADERS = {
 
 export default function signupUser(store,action) {
 
-    let url = "http://localhost:1337/parse/users";
+    let url = `${config.url}/parse/users`;
     
 
     fetch(url, {

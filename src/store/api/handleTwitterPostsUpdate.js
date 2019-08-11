@@ -1,3 +1,4 @@
+import config from "../../config.js";
 const HEADERS = {
     "X-Parse-Application-Id": "postit",
     "Content-Type": "application/json"
@@ -7,7 +8,7 @@ const HEADERS = {
     if(action.twitterPostId){
         let objectId = action.postId;
     let twitterPostId=action.twitterPostId;
-    let url = `http://localhost:1337/parse/classes/UserPosts/${objectId}`;
+    let url = `${config.url}/parse/classes/UserPosts/${objectId}`;
 
     fetch(url, {
         method: "put",
@@ -39,7 +40,7 @@ function twitterPostDeleteId(store,action) {
     else{
      let objectId = action.postId;
         
-    let url = `http://localhost:1337/parse/classes/UserPosts/${objectId}`;
+    let url = `${config.url}/parse/classes/UserPosts/${objectId}`;
 
     fetch(url, {
         method: "put",

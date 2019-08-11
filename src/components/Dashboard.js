@@ -1,6 +1,5 @@
 import React from "react";
 import { store, stateMapper} from "../store/store.js";
-
 import {connect} from "react-redux";
 import {BrowserRouter as Router, Route,Link,Redirect} from 'react-router-dom';
 import NavBar from './NavBar.js'
@@ -9,13 +8,15 @@ import SideBar from './SideBar.js'
 import ViewPosts from './ViewPosts.js';
 import ManagePost from "./ManagePost.js";
 
+let social = JSON.parse(localStorage.getItem("social"));
+
 
 
 class DashboardComponent extends React.Component{
     constructor(props){
         super(props);
         this.state={
-            userObjectId : this.props.useraccount.objectId,
+            userObjectId :null,
             userEmail : this.props.useraccount.email,
             userName  : this.props.useraccount.name,
             isFacebookConnected : false,
@@ -29,6 +30,9 @@ class DashboardComponent extends React.Component{
 
     componentDidMount(){
         this.doRedirect();
+        this.props.dispatch({
+            type:"FETCH_ACCOUNTS"
+        })
     }
      doRedirect(){
          if(!localStorage.getItem('user')){
@@ -37,6 +41,7 @@ class DashboardComponent extends React.Component{
      }
       changeCaption=(event)=>{this.setState({caption : event.target.value})}
     render(){
+       
         return(<div > 
                 <div className='landing'><NavBar/></div>
                 <div className='container' style={{marginTop : 230}}>

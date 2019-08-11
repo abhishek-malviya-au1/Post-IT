@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import {Route , Link ,BrowserRouter as Router} from 'react-router-dom';
+import {Route ,Link ,BrowserRouter as Router} from 'react-router-dom';
 import Login from "./components/Login.js";
 import {Provider} from "react-redux";
 import {store} from "./store/store.js";
@@ -14,14 +14,12 @@ import ViewPosts from './components/ViewPosts.js';
 import Logout from './components/Logout.js'
 
 
-
 class Home extends React.Component {
-
   render() {
     return (
       <Provider store={store}>
          <Router>
-          <Route exact path='/' component={LandingPage}/>
+          <Route exact={true} path='/' component={LandingPage}/>
             <Route path='/signup' component={SignUp}/>
             <Route path='/login'  component={Login}/>
             <Route path='/dashboard' component={Dashboard}/>
