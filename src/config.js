@@ -4,6 +4,6 @@ module.exports = {
     consumerSecret: 'vU50A0mwKjfl1pmwdDcKMSS7rVZKwWhMuxauKvf6FNatLRKuaK',
     loginUrl:"https://express-twitter-app.herokuapp.com/auth/twitter/login",
     tokenUrl:"https://express-twitter-app.herokuapp.com/auth/twitter/request",
-    url:"https://parse-server-for-postit.herokuapp.com"
+    url: 'https://parse-server-for-postit.herokuapp.com'
 };
 
